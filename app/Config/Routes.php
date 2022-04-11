@@ -29,9 +29,22 @@ $routes->setAutoRoute(true);
  * --------------------------------------------------------------------
  */
 
-// We get a performance increase by specifying the default
-// route since we don't have to scan directories.
-$routes->get('/', 'Home::index');
+			
+			//$routes->match(['get', 'post'], 'users/create', 'Users::create');
+			//$routes->get('users/(:segment)', 'Users::view/$1');
+			//$routes->get('users', 'Users::index');
+			//$routes->get('(:any)', 'Pages::view/$1');
+			//$routes->get('users/update/(:num)', 'Users::edit/$1');
+			//$routes->get('users/view_users/(:num)', 'users::view/$1');
+			//$routes->post('users/create_users/', 'Users::create_users');
+
+			/* //Update for REACT
+			$routes->put('home/update/(:num)','Home::update/$1');
+			$routes->get('home', 'Home::index');
+			//$routes->post('home', 'Home::create');
+			//$routes->get('home/(:segment)', 'Home::view/$1');
+			//$routes->get('/', 'Home::index');
+			$routes->match(['get', 'post'], 'home/create', 'Home::create'); */
 
 /*
  * --------------------------------------------------------------------

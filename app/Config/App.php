@@ -23,7 +23,7 @@ class App extends BaseConfig
      *
      * @var string
      */
-    public $baseURL = 'http://localhost:8080/';
+    public $baseURL = 'http://mi-linux.wlv.ac.uk/~2057147/odianjo/public';
 
     /**
      * --------------------------------------------------------------------------
