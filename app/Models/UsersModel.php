@@ -11,10 +11,10 @@ class UsersModel extends Model
 			protected $Key = 'name';
 			protected $useAutoIncreament = true;
 			
-			protected $allowedFields = ['id','title', 'name', 'surname' 'email', 'city'];
+			protected $allowedFields = ['id','title', 'name', 'surname', 'email', 'city'];
 			
 			
-			public function getUsers(4id = false)
+			public function getUsers($id = false)
 			{
 				if ($id === false){
 					return $this->findAll();
