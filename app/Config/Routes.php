@@ -28,15 +28,21 @@ $routes->setAutoRoute(true);
  * Route Definitions
  * --------------------------------------------------------------------
  */
+ 
+		
+		/* $routes->match(['get', 'post'], 'users/create', 'Users::create');
+		$routes->get('users/(:segment)', 'Users::view/$1');
+		$routes->get('users', 'Users::index');
+		$routes->get('/', 'Home::index'); */
 
-			
-			//$routes->match(['get', 'post'], 'users/create', 'Users::create');
-			//$routes->get('users/(:segment)', 'Users::view/$1');
-			//$routes->get('users', 'Users::index');
-			//$routes->get('(:any)', 'Pages::view/$1');
-			//$routes->get('users/update/(:num)', 'Users::edit/$1');
-			//$routes->get('users/view_users/(:num)', 'users::view/$1');
-			//$routes->post('users/create_users/', 'Users::create_users');
+		
+			$routes->match(['get', 'post'], 'users/create', 'Users::create');
+			$routes->get('users/(:segment)', 'Users::view/$1');
+			$routes->get('users', 'Users::index');
+			$routes->get('(:any)', 'Pages::view/$1');
+			$routes->get('users/update/(:num)', 'Users::edit/$1');
+			$routes->get('users/view_users/(:num)', 'Users::view/$1');
+			$routes->post('users/create_users/', 'Users::create_users'); 
 
 			/* //Update for REACT
 			$routes->put('home/update/(:num)','Home::update/$1');

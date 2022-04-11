@@ -79,7 +79,7 @@ class Home extends BaseController
 	 
 	
 	echo view('templates/header',['title' => 'Update The User' ]);
-	return view('/users/update' $data);
+		return view('/users/update', $data);
 	echo view('templates/floor');
 		
 	}
