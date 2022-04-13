@@ -28,27 +28,12 @@ $routes->setAutoRoute(true);
  * Route Definitions
  * --------------------------------------------------------------------
  */
- 
-		
-		/* $routes->match(['get', 'post'], 'users/create', 'Users::create');
-		$routes->get('users/(:segment)', 'Users::view/$1');
-		$routes->get('users', 'Users::index');
-		$routes->get('/', 'Home::index'); */
-
-		
+ 			
 			$routes->match(['get', 'post'], 'users/create', 'Users::create');
 			$routes->get('users', 'Users::index');
-			$routes->get('users/update/(:num)', 'Users::update/$1');
+			$routes->put('users/update_users/(:num)','Users::update_users/$1');
 			$routes->get('users/delete_users/(:num)', 'Users::delete_users/$1');
 			$routes->post('users/create/', 'Users::create'); 
-
-			/* //Update for REACT
-			$routes->put('home/update/(:num)','Home::update/$1');
-			$routes->get('home', 'Home::index');
-			//$routes->post('home', 'Home::create');
-			//$routes->get('home/(:segment)', 'Home::view/$1');
-			//$routes->get('/', 'Home::index');
-			$routes->match(['get', 'post'], 'home/create', 'Home::create'); */
 
 /*
  * --------------------------------------------------------------------

@@ -173,7 +173,7 @@ class Users extends ResourceController
 		return $this->response->redirect(site_url('/users'));
 	} */
 	
-	public function update($id = null)
+	public function update_users($id = null)
 	{
 		
 		 $model = new UsersModel();
