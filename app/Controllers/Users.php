@@ -3,25 +3,41 @@
 namespace App\Controllers;
 
 use App\Models\UsersModel;
+use CodeIgniter\RESTful\ResourceController;
+use CodeIgniter\HTTP\RequestInterface;
+use CodeIgniter\API\ResponseTrait;
 
-
-class Users extends BaseController
+class Users extends ResourceController
 {
-    public function index()
+    /*public function index()
     {
         $model = model(UsersModel::class);
 		
 		$data = [
 					'users' => $model->getUsers(),
-					'title' => 'New Users',
+					//'title' => 'New Users',
 					
 		];
 		
 		$encode_data = json_encode($data);
 		echo $encode_data;
-    }
+    } */
 	
-	public function view($id = null)
+		use ResponseTrait;
+	 protected $format    = 'json';
+	 
+    // Get all news items
+	public function index()
+	{
+    $model = model(UsersModel::class);
+
+   return $this->respond($model->getUsers());
+	
+	
+		
+	}
+	
+	/* public function view($id = null)
 	{
 		$model = model(UsersModel::class);
 		
@@ -30,10 +46,22 @@ class Users extends BaseController
 		echo view('templates/header', ['title' => 'View User Details']);
 		return view('users/view', $data);
 		echo view('templates/footer');
-	}
+	} */
+	
+	public function view($id = null)
+    {
+        $model = model(UsersModel::class);
+
+        $data['users'] = $model->getUsers($id);
+		
+		 return $this->respond($data);
+		
+    }
+	
+	
 	
 	//This function is used to create new users on the database 
-	public function create()
+	/* public function create()
 	{
 		$model = model(UsersModel::class);
 		
@@ -55,22 +83,50 @@ class Users extends BaseController
 							'city' => $this->request->getPost('city'),
 						]);
 						
-						 /* $response = data('message' => 'User added successfully.'); */
+						 /* $response = data('message' => 'User added successfully.'); 
 						 
-						$data = json_encode($model);
-						echo $data;
+					
 				
 		}
-		else {
-			echo view ('templates/header', ['title'=> 'Create a new user']);
-			echo view ('users/create');
-			echo view ('templates/footer');
-		}
 		
 		
-	}
+		
+	} */
 	
-	public function edit ($id) {
+	public function create()
+    {
+       
+        $rules = [
+            'title' => 'required',
+            'name' => 'required', 
+			'surname' => 'required',
+			'email' => 'required', 
+			'city' => 'required'
+
+
+        ];
+        $data = [
+            'title' => $this->request->getVar('title'),
+            'name' => $this->request->getVar('name'),
+			'surname' => $this->request->getVar('surname'),
+			'email' => $this->request->getVar('email'),
+			'city' => $this->request->getVar('city')
+
+        ];
+        if(!$this->validate($rules)) return $this->fail($this->validator->getErrors());
+        $model = new UsersModel();
+        $model->save($data);
+        $response = [
+            'status' => 201,
+            'error' => null,
+            'message'=> [
+                'success' => 'new user added'
+            ]
+        ];
+        return $this->respondCreated($response);
+    }
+	
+	/* public function edit ($id) {
 		
 		$model = new UsersModel();
 		
@@ -82,9 +138,22 @@ class Users extends BaseController
 		return view('/users/update', $data);
 	echo view('templates/floor');
 		
-	}
+	} */
 	
-	public function update()
+	public function edit($id=null) {
+		 
+        $model = new UsersModel();
+		//$model = $this->find($id);
+        $data['users'] = $model->getUsers($id);
+		
+		
+		
+		return $this->respond($data);
+        
+		
+    } 
+	
+	/* public function update()
 	{
 		
 		$model = new UsersModel();
@@ -98,13 +167,51 @@ class Users extends BaseController
 				'city' => $this->request->getPost('city'),
 		];
 		
-			/* $response = data('message' => 'User updated successfully.'); */
+			 $response = data('message' => 'User updated successfully.'); 
 			
 		$model->update($id, $data);
 		return $this->response->redirect(site_url('/users'));
+	} */
+	
+	public function update($id = null)
+	{
+		
+		 $model = new UsersModel();
+		
+
+         $json = $this->request->getJSON();
+        
+        $title = $json->title;
+        $name = $json->name;
+		$surname = $json->surname;
+	    $email = $json->email;
+	    $city = $json->city;
+        
+        $data = array(
+            'title' => $title,
+            'name' => $name,
+			'surname' => $surname,
+			'email' => $email,
+			'city' => $city
+        );
+        
+        $this->model->update($id, $data);
+        
+        $response = array(
+            'status'   => 200,
+            'messages' => array(
+                'success' => 'users updated successfully'
+            )
+        );
+      
+        return $this->respond($response);
+		 
+		
 	}
 	
-	public function delete_users($id)
+	
+	
+	/* public function delete_users($id)
 	{
 		
 		$model = UsersModel();
@@ -112,7 +219,26 @@ class Users extends BaseController
 		$data['model'] = $model->where('id', $id)->delete($id);
 		return $this->response->redirect(site_url('/users'));
 		
-		/* $response = data('message' => 'User deleted successfully.'); */
+		/* $response = data('message' => 'User deleted successfully.'); 
+	} */
+	
+	public function delete_users($id = null)
+	{
+		 $model = new UsersModel();
+		
+		$data['model'] = $model->where('id', $id)->delete($id);
+		
+		
+		$response = array(
+                'status'   => 200,
+                'messages' => array(
+                    'success' => 'User Item successfully deleted'
+                )
+            );
+			
+			 return $this->respondDeleted($response);
+		
+       // return $this->response->redirect(site_url('/news'));
 	}
 	
 		

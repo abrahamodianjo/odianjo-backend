@@ -37,12 +37,10 @@ $routes->setAutoRoute(true);
 
 		
 			$routes->match(['get', 'post'], 'users/create', 'Users::create');
-			$routes->get('users/(:segment)', 'Users::view/$1');
 			$routes->get('users', 'Users::index');
-			$routes->get('(:any)', 'Pages::view/$1');
-			$routes->get('users/update/(:num)', 'Users::edit/$1');
-			$routes->get('users/view_users/(:num)', 'Users::view/$1');
-			$routes->post('users/create_users/', 'Users::create_users'); 
+			$routes->get('users/update/(:num)', 'Users::update/$1');
+			$routes->get('users/delete_users/(:num)', 'Users::delete_users/$1');
+			$routes->post('users/create/', 'Users::create'); 
 
 			/* //Update for REACT
 			$routes->put('home/update/(:num)','Home::update/$1');
