@@ -25,6 +25,7 @@ class Users extends ResourceController
 	
 		use ResponseTrait;
 	 protected $format    = 'json';
+	 protected $db, $builder;
 	 
     // Get all news items
 	public function index()
@@ -173,15 +174,14 @@ class Users extends ResourceController
 		return $this->response->redirect(site_url('/users'));
 	} */
 	
-	public function update_users($id = null)
+	/* public function update($id = null)
 	{
 		
 		 $model = new UsersModel();
 		
-
          $json = $this->request->getJSON();
-        
-        $title = $json->title;
+         
+        $title = $json -> title;
         $name = $json->name;
 		$surname = $json->surname;
 	    $email = $json->email;
@@ -207,8 +207,31 @@ class Users extends ResourceController
         return $this->respond($response);
 		 
 		
-	}
+	} */
 	
+			public function update( $id = NULL )
+		  {	
+		  
+			$model = model(UsersModel::class);
+			$id = $this->request->getVar('id');
+		
+		$data =[
+				'title' => $this->request->getPost('title'),
+				'name' => $this->request->getPost('name'),
+				'surname' => $this->request->getPost('surname'),
+				'email' => $this->request->getPost('email'),
+				'city' => $this->request->getPost('city'),
+		];
+		
+			$model->update($id, $data);
+			
+			
+			$response = array('status'   => 200, 'messages' => array('success' => 'users updated successfully'));
+				  
+					return $this->respond($response);
+		 
+		  }
+			
 	
 	
 	/* public function delete_users($id)
@@ -238,7 +261,7 @@ class Users extends ResourceController
 			
 			 return $this->respondDeleted($response);
 		
-       // return $this->response->redirect(site_url('/news'));
+       
 	}
 	
 		
