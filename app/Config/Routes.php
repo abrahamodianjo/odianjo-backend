@@ -28,12 +28,15 @@ $routes->setAutoRoute(true);
  * Route Definitions
  * --------------------------------------------------------------------
  */
- 			
+ 			//$routes->resource('users');
+			
 			$routes->match(['get', 'post'], 'users/create', 'Users::create');
-			$routes->get('users', 'Users::index');
-			$routes->put('users/update_users/(:num)','Users::update_users/$1');
-			$routes->get('users/delete_users/(:num)', 'Users::delete_users/$1');
-			$routes->post('users/create/', 'Users::create'); 
+			$routes->get('/users', 'Users::index');
+			//$routes->put('users/update/(:num)','Users::update/$1'); 
+			$routes->put('/users/update/(:segement)',      'Users::update/$1');
+			//$routes->patch('users/update/(:num)',    'Users::update/$1'); 
+			$routes->get('/users/delete_users/(:num)', 'Users::delete_users/$1');
+			$routes->post('/users/create/', 'Users::create'); 
 
 /*
  * --------------------------------------------------------------------

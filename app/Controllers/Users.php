@@ -174,12 +174,12 @@ class Users extends ResourceController
 		return $this->response->redirect(site_url('/users'));
 	} */
 	
-	/* public function update($id = null)
+	  public function update($id = null)
 	{
 		
 		 $model = new UsersModel();
 		
-         $json = $this->request->getJSON();
+        $json = $this->request->getJSON();
          
         $title = $json -> title;
         $name = $json->name;
@@ -207,31 +207,34 @@ class Users extends ResourceController
         return $this->respond($response);
 		 
 		
-	} */
-	
-			public function update( $id = NULL )
+	} 
+	 
+			/* public function update( $id = INT )
 		  {	
 		  
-			$model = model(UsersModel::class);
-			$id = $this->request->getVar('id');
-		
-		$data =[
-				'title' => $this->request->getPost('title'),
-				'name' => $this->request->getPost('name'),
-				'surname' => $this->request->getPost('surname'),
-				'email' => $this->request->getPost('email'),
-				'city' => $this->request->getPost('city'),
+			//$data['model'] = $model->where('id', $id)->update($id);
+			
+			
+			
+			
+			$data =[
+				'title' => $this->request->getPut('title'),
+				'name' => $this->request->getPut('name'),
+				'surname' => $this->request->getPut('surname'),
+				'email' => $this->request->getPut('email'),
+				'city' => $this->request->getPut('city'),
 		];
 		
-			$model->update($id, $data);
+		 	$model->update($id, $data);
 			
 			
-			$response = array('status'   => 200, 'messages' => array('success' => 'users updated successfully'));
+			$response = array('status'   => 200, 'messages' 
+						=> array('success' => 'users updated successfully'));
 				  
 					return $this->respond($response);
 		 
 		  }
-			
+			 */
 	
 	
 	/* public function delete_users($id)
@@ -244,6 +247,32 @@ class Users extends ResourceController
 		
 		/* $response = data('message' => 'User deleted successfully.'); 
 	} */
+	
+	
+	/*function update($id) 
+	{ 
+		$id= $this->input->post('id'); 
+		$data = array( 
+		'title'=> $this->input->post('title'), 
+		'name' => $this->input->post('name'), 
+		'surname'=> $this->input->post('surname'), 
+		'email' => $this->input->post('email'), 
+		'city' => $this->input->post('city') ); 
+		
+		if($data ==null){
+			
+			return("No data applied");
+		}
+		
+		$this->UserModel->update($id,$data); 
+		$this->view(); 
+		
+		$response = array('status'   => 200, 'messages' 
+						=> array('success' => 'users updated successfully'));
+				  
+					return $this->respond($response);
+		}
+		*/
 	
 	public function delete_users($id = null)
 	{
