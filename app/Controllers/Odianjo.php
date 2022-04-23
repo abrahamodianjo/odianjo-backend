@@ -26,10 +26,15 @@
 					
 				];
 				
-				if(!$this->validate($rules)) {
-					
-					return $this->fail($data)
-				}
+					if(!$this->validate($rules)) {
+					return $this->fail($this->validator->getErrors());
+					} 
+					else 
+						{
+							$data = [
+								'post_title' => $this->request->getVar('title')
+						];
+					}
 				
 			}
 		}
