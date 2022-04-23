@@ -32,7 +32,11 @@
 					else 
 						{
 							$data = [
-								'post_title' => $this->request->getVar('title')
+								'post_title' => $this->request->getVar('title'),
+								'post_name' => $this->request->getVar('name'),
+								'post_surname' => $this->request->getVar('surname'),
+								'post_email' => $this->request->getVar('email'),
+								'post_city' => $this->request->getVar('city')
 						];
 					}
 				
