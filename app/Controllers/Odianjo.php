@@ -7,7 +7,7 @@ use App\Models\OdianjoModel;
 class Odianjo extends ResourceController
 {
     use ResponseTrait;
-    // get all product
+    // get all users
     public function index()
     {
         $model = new OdianjoModel();
@@ -15,7 +15,7 @@ class Odianjo extends ResourceController
         return $this->respond($data);
     }
  
-    // get single product
+    // get single user
     public function show($id = null)
     {
         $model = new OdianjoModel();
@@ -27,53 +27,54 @@ class Odianjo extends ResourceController
         }
     }
  
-    // create a product
+    // create a user
     public function create()
     {
         $model = new OdianjoModel();
         $data = [
-			'title'=> $this->request->getVar(title),
+			'title'=> $this->request->getVar('title'),
             'name' => $this->request->getVar('name'),
             'surname' => $this->request->getVar('surname'),
 			'email'=> $this->request->getVar('email'),
 			'city' => $this->request->getVar('city')
         ];
         $model->insert($data);
+		
         $response = [
-            'status'   => 201,
+            'status'   => 200,
             'error'    => null,
             'messages' => [
-                'success' => 'Data Saved'
+                'success' => 'User Data Saved'
             ]
         ];
         return $this->respondCreated($response);
     }
  
-    // update product
+    // update users
     public function update($id = null)
     {
         $model = new OdianjoModel();
         $input = $this->request->getRawInput();
-        $data = [
-			'title' => $input['title'],
-            'name' => $input['name'],
-            'surname' => $input['surname'],
-			'email' => $input['email'],
-			'city' => $input['city']
-        ];
+        $data = array(
+            'title' => $title,
+            'name' => $name,
+			'surname' => $surname,
+			'email' => $email,
+			'city' => $city
+        );
         $model->update($id, $data);
         $response = [
             'status'   => 200,
             'error'    => null,
             'messages' => [
-                'success' => 'Data Updated'
+                'success' => 'User Data Updated'
             ]
         ];
         return $this->respond($response);
     }
  
-    // delete product
-    public function delete($id = null)
+    // delete users 
+    public function delete_users($id = null)
     {
         $model = new OdianjoModel();
         $data = $model->find($id);
@@ -83,7 +84,7 @@ class Odianjo extends ResourceController
                 'status'   => 200,
                 'error'    => null,
                 'messages' => [
-                    'success' => 'Data Deleted'
+                    'success' => 'User Data Deleted'
                 ]
             ];
             return $this->respondDeleted($response);

@@ -39,10 +39,14 @@ $routes->setAutoRoute(true);
 			$routes->post('/users/create/', 'Users::create'); 
  */
  
-		$routes->resource('odianjo');
+		//$routes->resource('odianjo');
 		
 		//equivalent to these:
-		
+		$routes->match(['get', 'post'], 'odianjo/create/', 'Odianjo::create');
+			$routes->get('/odianjo', 'Odianjo::index');
+			$routes->patch('/odianjo/update/(:segement)', 'Odianjo::update/$1');
+			$routes->get('/odianjo/delete_users/(:num)', 'Odianjo::delete_users/$1');
+			$routes->post('/odianjo/create/', 'Odianjo::create'); 
 		
 /*
  * --------------------------------------------------------------------
