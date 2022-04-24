@@ -30,6 +30,10 @@ class Odianjo extends ResourceController
     // create a user
     public function create()
     {
+		header("Content-type:application/json");
+		header('Access-Control-Allow-Origin: *');
+		header('Access-Control-Allow-Methods: POST, GET, DELETE, PUT, PATCH, OPTIONS');
+		header('Access-Control-Allow-Headers: token, Content-Type');
         $model = new OdianjoModel();
         $data = [
 			'title'=> $this->request->getVar('title'),
@@ -53,25 +57,54 @@ class Odianjo extends ResourceController
     // update users
     public function update($id = null)
     {
-        $model = new OdianjoModel();
-        $input = $this->request->getRawInput();
-        $data = array(
-            'title' => $title,
+		
+		header("Content-type:application/json");
+		header('Access-Control-Allow-Origin: *');
+		header('Access-Control-Allow-Methods: POST, GET, DELETE, PUT, PATCH, OPTIONS');
+		header('Access-Control-Allow-Headers: token, Content-Type');
+
+		$requestData = json_decode(file_get_contents('php://input'), true);
+		
+		if(!empty($requestData)) {
+
+		  $title = $requestData['title'];
+		  $name = $requestData['name'];
+		  $surname = $requestData['surname'];
+		  $email = $requestData['email'];
+		  $city = $requestData['city'];
+	  
+        /* $model = new OdianjoModel();
+        $input = $this->request->getRawInput(); */
+        
+		$data = array(
+			'title' => $title,
             'name' => $name,
 			'surname' => $surname,
 			'email' => $email,
 			'city' => $city
         );
-        $model->update($id, $data);
-        $response = [
+		$id = $this->OdianjoModel->update($id, $data);
+		$response = array(
+        'status' => 'success',
+        'message' => 'Product updated successfully.'
+      );
+       // $model->update($id, $data);
+        /* $response = [
             'status'   => 200,
             'error'    => null,
             'messages' => [
                 'success' => 'User Data Updated'
             ]
         ];
-        return $this->respond($response);
+        return $this->respond($response);*/
+		} 
+		
+			 else {
+		  $response = array(
+			'status' => 'error'
+		  );
     }
+	}
  
     // delete users 
     public function delete_users($id = null)
