@@ -1,29 +1,25 @@
-<?php 
-
-namespace App\Controllers;
+<?php namespace App\Controllers;
  
 use CodeIgniter\RESTful\ResourceController;
 use CodeIgniter\API\ResponseTrait;
-use App\Models\OdianjoModel;
+use App\Models\ProductModel;
  
-class Odianjo extends ResourceController
+class Products extends ResourceController
 {
     use ResponseTrait;
-    // get all users
+    // get all product
     public function index()
     {
-		header("Access-Control-Allow-Origin: *");
-        $model = new OdianjoModel();
+        $model = new ProductModel();
         $data = $model->findAll();
         return $this->respond($data);
     }
  
-    // get single user
+    // get single product
     public function show($id = null)
     {
-		header("Access-Control-Allow-Origin: *");
-        $model = new OdianjoModel();
-        $data = $model->getWhere(['id' => $id])->getResult();
+        $model = new ProductModel();
+        $data = $model->getWhere(['product_id' => $id])->getResult();
         if($data){
             return $this->respond($data);
         }else{
@@ -31,59 +27,49 @@ class Odianjo extends ResourceController
         }
     }
  
-    // create a user
+    // create a product
     public function create()
-    {	
-		
-		$model = new OdianjoModel();
+    {
+        $model = new ProductModel();
         $data = [
-			'title'=> $this->request->getVar('title'),
-            'name' => $this->request->getVar('name'),
-            'surname' => $this->request->getVar('surname'),
-			'email'=> $this->request->getVar('email'),
-			'city' => $this->request->getVar('city')
+            'product_name' => $this->request->getVar('product_name'),
+            'product_price' => $this->request->getVar('product_price')
         ];
         $model->insert($data);
-		
         $response = [
-            
+            'status'   => 201,
+            'error'    => null,
             'messages' => [
-                'success' => 'User Data Saved'
+                'success' => 'Data Saved'
             ]
         ];
         return $this->respondCreated($response);
     }
-			
-			// update product
+ 
+    // update product
     public function update($id = null)
     {
-         
-		$model = new OdianjoModel();
+        $model = new ProductModel();
         $input = $this->request->getRawInput();
         $data = [
-			'title' => $input['title'],
-            'name' => $input['name'],
-			'surname' => $input['surname'],
-			'email' => $input['email'],
-            'city' => $input['city']
-			
+            'product_name' => $input['product_name'],
+            'product_price' => $input['product_price']
         ];
         $model->update($id, $data);
         $response = [
-            
+            'status'   => 200,
+            'error'    => null,
             'messages' => [
                 'success' => 'Data Updated'
             ]
         ];
         return $this->respond($response);
     }
-			
-			
  
-    // delete users 
-    public function delete_users($id = null)
+    // delete product
+    public function delete($id = null)
     {
-        $model = new OdianjoModel();
+        $model = new ProductModel();
         $data = $model->find($id);
         if($data){
             $model->delete($id);
@@ -91,7 +77,7 @@ class Odianjo extends ResourceController
                 'status'   => 200,
                 'error'    => null,
                 'messages' => [
-                    'success' => 'User Data Deleted'
+                    'success' => 'Data Deleted'
                 ]
             ];
             return $this->respondDeleted($response);

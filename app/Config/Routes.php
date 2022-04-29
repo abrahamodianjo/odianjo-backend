@@ -42,12 +42,14 @@ $routes->setAutoRoute(true);
 		//$routes->resource('odianjo');
 		
 		//equivalent to these:
-			$routes->match(['get', 'post'], 'odianjo/create/', 'Odianjo::create');
+			$routes->match(['get', 'post'], 'odianjo/create', 'Odianjo::create');
 			$routes->get('/odianjo', 'Odianjo::index');
-			$routes->put('/odianjo/update/(:num)', 'Odianjo::update/$1');
+			$routes->post('/odianjo/update/(:num)', 'Odianjo::update/$1');
 			$routes->get('/odianjo/delete_users/(:num)', 'Odianjo::delete_users/$1');
-			$routes->post('/odianjo/create/', 'Odianjo::create'); 
-		
+			$routes->post('/odianjo/create', 'Odianjo::create'); 
+			$routes->post('/odianjo/edit/(:num)', 'Odianjo::show/$1');
+			$routes->get('/users', 'Users::index');
+			
 /*
  * --------------------------------------------------------------------
  * Additional Routing
