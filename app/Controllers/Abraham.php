@@ -12,12 +12,11 @@ class Abraham extends ResourceController
     public function index()
     {
 		
+		
 		header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: X-API-KEY, Origin,X-Requested-With, Content-Type, Accept, Access-Control-Requested-Method, Authorization");
 		header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PATCH, PUT, DELETE");
-		
-		
-			//calling the model
+		//calling the model
         $model = new AbrahamModel();
 		// pointing the data to the model
         $data = $model->findAll();
@@ -30,19 +29,17 @@ class Abraham extends ResourceController
 		header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: X-API-KEY, Origin,X-Requested-With, Content-Type, Accept, Access-Control-Requested-Method, Authorization");
 		header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PATCH, PUT, DELETE");
-		
         $model = new AbrahamModel();
         $data = $model->find(['id' => $id]);
         if(!$data) return $this->failNotFound(' not found ');
         return $this->respond($data[0]);
     }
 
-    public function create()
+    public function create($id = null)
     {
 		header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: X-API-KEY, Origin,X-Requested-With, Content-Type, Accept, Access-Control-Requested-Method, Authorization");
 		header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PATCH, PUT, DELETE");
-		
         $data = [
             'name' => $this->request->getVar('name'),
             'surname' => $this->request->getVar('surname'),
@@ -67,7 +64,6 @@ class Abraham extends ResourceController
 		header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: X-API-KEY, Origin,X-Requested-With, Content-Type, Accept, Access-Control-Requested-Method, Authorization");
 		header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PATCH, PUT, DELETE");
-		
         $data = [
             'name' => $this->request->getVar('name'),
             'surname' => $this->request->getVar('surname'),
@@ -94,7 +90,6 @@ class Abraham extends ResourceController
 		header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Headers: X-API-KEY, Origin,X-Requested-With, Content-Type, Accept, Access-Control-Requested-Method, Authorization");
 		header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PATCH, PUT, DELETE");
-		
         $model = new AbrahamModel();
         $findbyid = $model->find(['id' => $id]);
         if(!$findbyid) return $this->failNotFound(' not found ');
